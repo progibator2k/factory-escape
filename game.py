@@ -47,6 +47,7 @@ class Game:
         self.items = {name: list(room["items"]) for name, room in ROOMS.items()}
         self.locker_open = False
         self.finished = False
+        self.moves = 0
 
     def describe(self):
         text = ROOMS[self.room]["desc"]
@@ -64,9 +65,10 @@ class Game:
         if dest == "проходная" and "ключ-карта" not in self.inventory:
             return "Дверь заперта электронным замком. Нужна ключ-карта."
         self.room = dest
+        self.moves += 1
         if dest == "проходная":
             self.finished = True
-            return "Вы прикладываете карту, дверь открывается... Вы сбежали с завода! ПОБЕДА!"
+            return f"Вы прикладываете карту, дверь открывается... Вы сбежали с завода за {self.moves} ходов! ПОБЕДА!"
         return self.describe()
 
     def take(self, item):
