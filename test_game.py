@@ -57,3 +57,9 @@ def test_full_walkthrough_wins():
         game.handle(cmd)
     assert game.finished
     assert game.room == "проходная"
+
+def test_moves_counter():
+    game = Game()
+    game.handle("идти север")
+    game.handle("идти юг")
+    assert game.moves == 2
